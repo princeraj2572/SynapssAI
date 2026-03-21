@@ -8,6 +8,7 @@ from api.router_memory     import router as memory_router
 from api.router_journal    import router as journal_router
 from api.router_alerts     import router as alerts_router
 from api.router_activities import router as activities_router
+from services.scheduler import start_scheduler, stop_scheduler
 
 app = FastAPI(
     title="Personal Life OS API",
@@ -30,6 +31,18 @@ app.include_router(memory_router)
 app.include_router(journal_router)
 app.include_router(alerts_router)
 app.include_router(activities_router)
+
+
+@app.on_event("startup")
+async def startup_event():
+    """Start background scheduler on app startup."""
+    start_scheduler()
+
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Stop background scheduler on app shutdown."""
+    stop_scheduler()
 
 
 @app.get("/health")

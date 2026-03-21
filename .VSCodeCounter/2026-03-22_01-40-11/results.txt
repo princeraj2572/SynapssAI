@@ -1,0 +1,98 @@
+Date : 2026-03-22 01:40:11
+Directory : e:\Project\personal-life-os\personal-life-os\backend
+Total : 60 files,  2089 codes, 128 comments, 586 blanks, all 2803 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| Python           |         55 |      1,528 |        128 |        435 |      2,091 |
+| Markdown         |          2 |        503 |          0 |        135 |        638 |
+| Ini              |          1 |         29 |          0 |          9 |         38 |
+| pip requirements |          1 |         18 |          0 |          1 |         19 |
+| Docker           |          1 |         11 |          0 |          6 |         17 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                          | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                             |         60 |      2,089 |        128 |        586 |      2,803 |
+| . (Files)                                                                     |          8 |        633 |         16 |        175 |        824 |
+| api                                                                           |         11 |        174 |          1 |         63 |        238 |
+| db                                                                            |          5 |        103 |          5 |         31 |        139 |
+| db (Files)                                                                    |          4 |         77 |          5 |         26 |        108 |
+| db\migrations                                                                 |          1 |         26 |          0 |          5 |         31 |
+| jobs                                                                          |          9 |        148 |         30 |         46 |        224 |
+| models                                                                        |          9 |         83 |          1 |         34 |        118 |
+| schemas                                                                       |          4 |         72 |          0 |         30 |        102 |
+| services                                                                      |         10 |        768 |         64 |        183 |      1,015 |
+| utils                                                                         |          4 |        108 |         11 |         24 |        143 |
++-------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                      | language         | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| e:\Project\personal-life-os\personal-life-os\backend\BACKEND_STATUS.md        | Markdown         |        164 |          0 |         39 |        203 |
+| e:\Project\personal-life-os\personal-life-os\backend\Dockerfile               | Docker           |         11 |          0 |          6 |         17 |
+| e:\Project\personal-life-os\personal-life-os\backend\SCHEDULER.md             | Markdown         |        339 |          0 |         96 |        435 |
+| e:\Project\personal-life-os\personal-life-os\backend\api\__init__.py          | Python           |          0 |          0 |          1 |          1 |
+| e:\Project\personal-life-os\personal-life-os\backend\api\router_activities.py | Python           |         39 |          0 |         10 |         49 |
+| e:\Project\personal-life-os\personal-life-os\backend\api\router_alerts.py     | Python           |         16 |          0 |          8 |         24 |
+| e:\Project\personal-life-os\personal-life-os\backend\api\router_analytics.py  | Python           |         28 |          0 |         12 |         40 |
+| e:\Project\personal-life-os\personal-life-os\backend\api\router_digest.py     | Python           |          5 |          1 |          2 |          8 |
+| e:\Project\personal-life-os\personal-life-os\backend\api\router_goals.py      | Python           |          5 |          0 |          2 |          7 |
+| e:\Project\personal-life-os\personal-life-os\backend\api\router_journal.py    | Python           |         32 |          0 |          8 |         40 |
+| e:\Project\personal-life-os\personal-life-os\backend\api\router_memory.py     | Python           |         18 |          0 |          6 |         24 |
+| e:\Project\personal-life-os\personal-life-os\backend\api\router_settings.py   | Python           |          5 |          0 |          2 |          7 |
+| e:\Project\personal-life-os\personal-life-os\backend\api\router_streaks.py    | Python           |         12 |          0 |          6 |         18 |
+| e:\Project\personal-life-os\personal-life-os\backend\api\router_track.py      | Python           |         14 |          0 |          6 |         20 |
+| e:\Project\personal-life-os\personal-life-os\backend\check_api.py             | Python           |         20 |          4 |          4 |         28 |
+| e:\Project\personal-life-os\personal-life-os\backend\check_db.py              | Python           |         19 |          4 |          5 |         28 |
+| e:\Project\personal-life-os\personal-life-os\backend\config.py                | Python           |         17 |          6 |         11 |         34 |
+| e:\Project\personal-life-os\personal-life-os\backend\db\__init__.py           | Python           |          0 |          0 |          1 |          1 |
+| e:\Project\personal-life-os\personal-life-os\backend\db\alembic.ini           | Ini              |         29 |          0 |          9 |         38 |
+| e:\Project\personal-life-os\personal-life-os\backend\db\init_db.py            | Python           |         28 |          5 |          8 |         41 |
+| e:\Project\personal-life-os\personal-life-os\backend\db\migrations\env.py     | Python           |         26 |          0 |          5 |         31 |
+| e:\Project\personal-life-os\personal-life-os\backend\db\session.py            | Python           |         20 |          0 |          8 |         28 |
+| e:\Project\personal-life-os\personal-life-os\backend\jobs\__init__.py         | Python           |          0 |          0 |          1 |          1 |
+| e:\Project\personal-life-os\personal-life-os\backend\jobs\job_backup.py       | Python           |          2 |          1 |          1 |          4 |
+| e:\Project\personal-life-os\personal-life-os\backend\jobs\job_burnout.py      | Python           |         18 |          3 |          6 |         27 |
+| e:\Project\personal-life-os\personal-life-os\backend\jobs\job_correlations.py | Python           |         15 |          4 |          6 |         25 |
+| e:\Project\personal-life-os\personal-life-os\backend\jobs\job_daily_stats.py  | Python           |         46 |          4 |          8 |         58 |
+| e:\Project\personal-life-os\personal-life-os\backend\jobs\job_digest.py       | Python           |          2 |          1 |          1 |          4 |
+| e:\Project\personal-life-os\personal-life-os\backend\jobs\job_memory.py       | Python           |         29 |          5 |          8 |         42 |
+| e:\Project\personal-life-os\personal-life-os\backend\jobs\job_streaks.py      | Python           |         15 |          3 |          6 |         24 |
+| e:\Project\personal-life-os\personal-life-os\backend\jobs\scheduler.py        | Python           |         21 |          9 |          9 |         39 |
+| e:\Project\personal-life-os\personal-life-os\backend\main.py                  | Python           |         45 |          2 |         13 |         60 |
+| e:\Project\personal-life-os\personal-life-os\backend\models\__init__.py       | Python           |          0 |          0 |          1 |          1 |
+| e:\Project\personal-life-os\personal-life-os\backend\models\activity.py       | Python           |         11 |          0 |          4 |         15 |
+| e:\Project\personal-life-os\personal-life-os\backend\models\alert.py          | Python           |         10 |          0 |          4 |         14 |
+| e:\Project\personal-life-os\personal-life-os\backend\models\daily_stat.py     | Python           |         10 |          0 |          5 |         15 |
+| e:\Project\personal-life-os\personal-life-os\backend\models\event.py          | Python           |         13 |          0 |          4 |         17 |
+| e:\Project\personal-life-os\personal-life-os\backend\models\goal.py           | Python           |         12 |          0 |          4 |         16 |
+| e:\Project\personal-life-os\personal-life-os\backend\models\journal.py        | Python           |          9 |          0 |          4 |         13 |
+| e:\Project\personal-life-os\personal-life-os\backend\models\memory.py         | Python           |          9 |          1 |          4 |         14 |
+| e:\Project\personal-life-os\personal-life-os\backend\models\streak.py         | Python           |          9 |          0 |          4 |         13 |
+| e:\Project\personal-life-os\personal-life-os\backend\requirements.txt         | pip requirements |         18 |          0 |          1 |         19 |
+| e:\Project\personal-life-os\personal-life-os\backend\schemas\__init__.py      | Python           |          0 |          0 |          1 |          1 |
+| e:\Project\personal-life-os\personal-life-os\backend\schemas\analytics.py     | Python           |         33 |          0 |         11 |         44 |
+| e:\Project\personal-life-os\personal-life-os\backend\schemas\memory.py        | Python           |         19 |          0 |          9 |         28 |
+| e:\Project\personal-life-os\personal-life-os\backend\schemas\track.py         | Python           |         20 |          0 |          9 |         29 |
+| e:\Project\personal-life-os\personal-life-os\backend\services\__init__.py     | Python           |          0 |          0 |          1 |          1 |
+| e:\Project\personal-life-os\personal-life-os\backend\services\analytics.py    | Python           |        150 |          0 |         30 |        180 |
+| e:\Project\personal-life-os\personal-life-os\backend\services\burnout.py      | Python           |         58 |          0 |         14 |         72 |
+| e:\Project\personal-life-os\personal-life-os\backend\services\embedding.py    | Python           |         14 |          7 |          5 |         26 |
+| e:\Project\personal-life-os\personal-life-os\backend\services\ingestion.py    | Python           |         63 |          0 |         11 |         74 |
+| e:\Project\personal-life-os\personal-life-os\backend\services\llm.py          | Python           |         51 |          4 |         10 |         65 |
+| e:\Project\personal-life-os\personal-life-os\backend\services\memory.py       | Python           |        101 |         11 |         27 |        139 |
+| e:\Project\personal-life-os\personal-life-os\backend\services\scheduler.py    | Python           |        224 |         42 |         65 |        331 |
+| e:\Project\personal-life-os\personal-life-os\backend\services\scoring.py      | Python           |         52 |          0 |          8 |         60 |
+| e:\Project\personal-life-os\personal-life-os\backend\services\streaks.py      | Python           |         55 |          0 |         12 |         67 |
+| e:\Project\personal-life-os\personal-life-os\backend\utils\__init__.py        | Python           |          0 |          0 |          1 |          1 |
+| e:\Project\personal-life-os\personal-life-os\backend\utils\categories.py      | Python           |         82 |         11 |         14 |        107 |
+| e:\Project\personal-life-os\personal-life-os\backend\utils\logging.py         | Python           |         13 |          0 |          2 |         15 |
+| e:\Project\personal-life-os\personal-life-os\backend\utils\timezone.py        | Python           |         13 |          0 |          7 |         20 |
+| Total                                                                         |                  |      2,089 |        128 |        586 |      2,803 |
++-------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
