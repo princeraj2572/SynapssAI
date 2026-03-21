@@ -8,6 +8,7 @@ from api.router_memory     import router as memory_router
 from api.router_journal    import router as journal_router
 from api.router_alerts     import router as alerts_router
 from api.router_activities import router as activities_router
+from api.router_export     import router as export_router
 from services.scheduler import start_scheduler, stop_scheduler
 
 app = FastAPI(
@@ -31,6 +32,7 @@ app.include_router(memory_router)
 app.include_router(journal_router)
 app.include_router(alerts_router)
 app.include_router(activities_router)
+app.include_router(export_router)
 
 
 @app.on_event("startup")
