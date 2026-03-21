@@ -1,8 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 import { healthCheck, getLLMStatus } from "@/lib/api";
-import { CheckCircle, AlertCircle, Radio, Wifi, WifiOff, Zap, Cpu, Database, BarChart3, Target, Brain, Clock, TrendingUp, HardDrive, Gauge, RefreshCw, ChevronDown, ChevronUp } from "lucide-react";
+import { CheckCircle, AlertCircle, Radio, Zap, Cpu, Database, BarChart3, Target, Brain, Clock, TrendingUp, HardDrive, Gauge, RefreshCw, ChevronDown, ChevronUp } from "lucide-react";
 
 export default function StatusPage() {
   const { data: health } = useSWR("health", healthCheck, { refreshInterval: 5000 });
@@ -56,7 +56,7 @@ export default function StatusPage() {
       name: "Memory Service", 
       status: (llmStatus as any)?.ollama_running ?? false, 
       icon: <Brain size={20} />,
-      uptime: llmStatus ? "98.5%" : "0%",
+      uptime: (llmStatus as any)?.ollama_running ? "98.5%" : "0%",
       version: "2.1.0",
       lastError: (llmStatus as any)?.ollama_running ? null : "Ollama not running",
       cpu: (llmStatus as any)?.ollama_running ? "320%" : "0%",
@@ -194,7 +194,7 @@ export default function StatusPage() {
         <p className="text-sm text-muted-foreground mt-2">Real-time health and performance of all services and collectors</p>
       </div>
 
-      {/* Overall Status - Enhanced */}
+      {/* Overall Status Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="card p-6 bg-gradient-to-br from-green-50 to-card dark:from-green-950 dark:to-card border-green-200">
           <div className="flex items-center justify-between mb-4">
@@ -233,7 +233,7 @@ export default function StatusPage() {
         </div>
       </div>
 
-      {/* Backend Services - Expanded */}
+      {/* Backend Engines Section */}
       <div>
         <div className="flex items-center gap-2 mb-4">
           <Zap size={20} className="text-blue-600" />
@@ -244,15 +244,15 @@ export default function StatusPage() {
         </div>
         <div className="space-y-3">
           {backends.map((backend, i) => (
-            <div key={i} className={`card p-4 border-l-4 transition-all ${backend.status ? "border-l-green-600" : "border-l-red-600"}`}>
-              <div className="flex items-center justify-between cursor-pointer hover:bg-secondary/30 p-3 -m-3 rounded" onClick={() => toggleExpanded(`backend-${i}`)}>
+            <div key={i} className={`card p-4 border-l-4 cursor-pointer transition-all hover:shadow-md ${backend.status ? "border-l-green-600" : "border-l-red-600"}`} onClick={() => toggleExpanded(`backend-${i}`)}>
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 flex-1">
                   <div className={`w-3 h-3 rounded-full ${backend.status ? "bg-green-500 animate-pulse" : "bg-red-500"}`} />
                   <div className="flex items-center gap-3">
                     <div className="text-muted-foreground">{backend.icon}</div>
                     <div>
                       <p className="text-sm font-semibold text-foreground">{backend.name}</p>
-                      <p className="text-xs text-muted-foreground">{backend.version}</p>
+                      <p className="text-xs text-muted-foreground">v{backend.version}</p>
                     </div>
                   </div>
                 </div>
@@ -269,7 +269,7 @@ export default function StatusPage() {
                     <p className="text-muted-foreground">Memory</p>
                     <p className="font-semibold text-foreground">{backend.memory}</p>
                   </div>
-                  <span className={`text-xs font-semibold px-2.5 py-1 rounded ${backend.status ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200" : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200"}`}>
+                  <span className={`text-xs font-semibold px-2.5 py-1 rounded whitespace-nowrap ${backend.status ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200" : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200"}`}>
                     {backend.status ? "✓ Active" : "✗ Inactive"}
                   </span>
                   {expandedServices.includes(`backend-${i}`) ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -298,7 +298,7 @@ export default function StatusPage() {
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground font-medium mb-2">Endpoint</p>
-                      <p className="text-xs bg-muted p-2 rounded font-mono">{backend.endpoint}</p>
+                      <p className="text-xs bg-muted p-2 rounded font-mono text-foreground">{backend.endpoint}</p>
                     </div>
                   </div>
                 </div>
@@ -308,7 +308,7 @@ export default function StatusPage() {
         </div>
       </div>
 
-      {/* Data Collectors - Expanded */}
+      {/* Data Collectors Section */}
       <div>
         <div className="flex items-center gap-2 mb-4">
           <Radio size={20} className="text-green-600" />
@@ -319,8 +319,8 @@ export default function StatusPage() {
         </div>
         <div className="space-y-3">
           {collectors.map((collector, i) => (
-            <div key={i} className={`card p-4 border-l-4 transition-all ${collector.status ? "border-l-green-600" : "border-l-gray-600"}`}>
-              <div className="flex items-center justify-between cursor-pointer hover:bg-secondary/30 p-3 -m-3 rounded" onClick={() => toggleExpanded(`collector-${i}`)}>
+            <div key={i} className={`card p-4 border-l-4 cursor-pointer transition-all hover:shadow-md ${collector.status ? "border-l-green-600" : "border-l-gray-600"}`} onClick={() => toggleExpanded(`collector-${i}`)}>
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 flex-1">
                   <div className={`w-3 h-3 rounded-full ${collector.status ? "bg-green-500 animate-pulse" : "bg-gray-400"}`} />
                   <div>
@@ -338,11 +338,11 @@ export default function StatusPage() {
                     <p className="font-semibold text-foreground">{collector.memory}</p>
                   </div>
                   {collector.status ? (
-                    <span className="text-xs font-semibold text-green-600 px-2.5 py-1 rounded bg-green-100 dark:bg-green-900">
+                    <span className="text-xs font-semibold text-green-600 px-2.5 py-1 rounded bg-green-100 dark:bg-green-900 whitespace-nowrap">
                       ✓ Running
                     </span>
                   ) : (
-                    <span className="text-xs font-semibold text-gray-600 px-2.5 py-1 rounded bg-gray-100 dark:bg-gray-900">
+                    <span className="text-xs font-semibold text-gray-600 px-2.5 py-1 rounded bg-gray-100 dark:bg-gray-900 whitespace-nowrap">
                       Offline
                     </span>
                   )}
@@ -352,7 +352,7 @@ export default function StatusPage() {
 
               {expandedServices.includes(`collector-${i}`) && (
                 <div className="mt-4 pt-4 border-t border-border space-y-3">
-                  {collector.reason && (
+                  {'reason' in collector && (
                     <div className="p-3 bg-yellow-100 dark:bg-yellow-900 border border-yellow-300 dark:border-yellow-700 rounded text-sm text-yellow-700 dark:text-yellow-200">
                       <p className="font-semibold">Note:</p>
                       <p>{collector.reason}</p>
@@ -365,7 +365,7 @@ export default function StatusPage() {
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground font-medium mb-2">Data Points</p>
-                      <p className="text-xs text-foreground">{collector.dataPoints}</p>
+                      <p className="text-sm text-foreground">{collector.dataPoints}</p>
                     </div>
                   </div>
                 </div>
@@ -375,7 +375,7 @@ export default function StatusPage() {
         </div>
       </div>
 
-      {/* System Services - Expanded */}
+      {/* System Services Section */}
       <div>
         <div className="flex items-center gap-2 mb-4">
           <Database size={20} className="text-orange-600" />
@@ -386,8 +386,8 @@ export default function StatusPage() {
         </div>
         <div className="space-y-3">
           {services.map((service, i) => (
-            <div key={i} className={`card p-4 border-l-4 transition-all ${service.status ? "border-l-blue-600" : "border-l-red-600"}`}>
-              <div className="flex items-center justify-between cursor-pointer hover:bg-secondary/30 p-3 -m-3 rounded" onClick={() => toggleExpanded(`service-${i}`)}>
+            <div key={i} className={`card p-4 border-l-4 cursor-pointer transition-all hover:shadow-md ${service.status ? "border-l-blue-600" : "border-l-red-600"}`} onClick={() => toggleExpanded(`service-${i}`)}>
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 flex-1">
                   <div className={`w-3 h-3 rounded-full ${service.status ? "bg-green-500" : "bg-red-500"}`} />
                   <div>
@@ -398,13 +398,13 @@ export default function StatusPage() {
                 <div className="flex items-center gap-4 ml-4">
                   <div className="text-right text-xs">
                     <p className="text-muted-foreground">Port {service.port}</p>
-                    <p className="font-semibold text-foreground">{service.response} response</p>
+                    <p className="font-semibold text-foreground">{service.response}</p>
                   </div>
                   <div className="text-right text-xs">
                     <p className="text-muted-foreground">Uptime</p>
                     <p className="font-semibold text-foreground">{service.uptime}</p>
                   </div>
-                  <span className={`text-xs font-semibold px-2.5 py-1 rounded ${service.status ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200" : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200"}`}>
+                  <span className={`text-xs font-semibold px-2.5 py-1 rounded whitespace-nowrap ${service.status ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200" : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200"}`}>
                     {service.status ? "✓ Online" : "✗ Offline"}
                   </span>
                   {expandedServices.includes(`service-${i}`) ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -433,7 +433,7 @@ export default function StatusPage() {
                     {service.name === "Database (PostgreSQL)" && (
                       <>
                         <div>
-                          <p className="text-xs text-muted-foreground font-medium mb-1">Active Connections</p>
+                          <p className="text-xs text-muted-foreground font-medium mb-1">Connections</p>
                           <p className="text-lg font-bold text-foreground">{service.connections}</p>
                         </div>
                         <div>
@@ -583,7 +583,7 @@ export default function StatusPage() {
         </div>
       </div>
 
-      {/* Troubleshooting Guide */}
+      {/* Troubleshooting */}
       <div className="card p-6 bg-gradient-to-br from-amber-50 to-card dark:from-amber-950 dark:to-card border-amber-200">
         <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
           <AlertCircle size={20} />
@@ -592,15 +592,15 @@ export default function StatusPage() {
         <div className="space-y-3">
           <div>
             <p className="text-sm font-semibold text-foreground mb-1">Ollama LLM Offline?</p>
-            <code className="text-xs bg-muted p-2 rounded block text-muted-foreground">ollama serve</code>
+            <code className="text-xs bg-muted p-2 rounded block text-muted-foreground font-mono">ollama serve</code>
           </div>
           <div>
             <p className="text-sm font-semibold text-foreground mb-1">Database Connection Refused?</p>
-            <code className="text-xs bg-muted p-2 rounded block text-muted-foreground">sudo service postgresql start</code>
+            <code className="text-xs bg-muted p-2 rounded block text-muted-foreground font-mono">sudo service postgresql start</code>
           </div>
           <div>
             <p className="text-sm font-semibold text-foreground mb-1">Backend API Not Responding?</p>
-            <code className="text-xs bg-muted p-2 rounded block text-muted-foreground">cd backend && python main.py</code>
+            <code className="text-xs bg-muted p-2 rounded block text-muted-foreground font-mono">cd backend && python main.py</code>
           </div>
         </div>
       </div>
@@ -611,213 +611,6 @@ export default function StatusPage() {
           <RefreshCw size={14} className="animate-spin" />
           <span>Auto-refreshing every 5 seconds</span>
         </div>
-        <p>Last updated: {new Date().toLocaleTimeString()}</p>
-      </div>
-    </div>
-  );
-}
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">System Status</h1>
-        <p className="text-sm text-muted-foreground mt-2">Real-time status of all services and collectors</p>
-      </div>
-
-      {/* Overall Status */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="card p-6 bg-gradient-to-br from-green-50 to-card dark:from-green-950 dark:to-card border-green-200">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-foreground">Backends</h3>
-            <CheckCircle size={20} className="text-green-600" />
-          </div>
-          <p className="text-3xl font-bold text-green-600">{activeCount}/{backends.length}</p>
-          <p className="text-xs text-muted-foreground mt-2">Active</p>
-        </div>
-
-        <div className={`card p-6 bg-gradient-to-br ${collectorCount > 0 ? "from-blue-50 to-card dark:from-blue-950 dark:to-card border-blue-200" : "from-yellow-50 to-card dark:from-yellow-950 dark:to-card border-yellow-200"}`}>
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-foreground">Collectors</h3>
-            {collectorCount > 0 ? <Radio size={20} className="text-blue-600 animate-pulse" /> : <WifiOff size={20} className="text-yellow-600" />}
-          </div>
-          <p className="text-3xl font-bold text-blue-600">{collectorCount}/{collectors.length}</p>
-          <p className="text-xs text-muted-foreground mt-2">Running</p>
-        </div>
-
-        <div className="card p-6 bg-gradient-to-br from-purple-50 to-card dark:from-purple-950 dark:to-card border-purple-200">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-foreground">Services</h3>
-            <Cpu size={20} className="text-purple-600" />
-          </div>
-          <p className="text-3xl font-bold text-purple-600">{servicesCount}/{services.length}</p>
-          <p className="text-xs text-muted-foreground mt-2">Online</p>
-        </div>
-      </div>
-
-      {/* Backend Services */}
-      <div>
-        <div className="flex items-center gap-2 mb-4">
-          <Zap size={20} className="text-blue-600" />
-          <h2 className="text-xl font-bold text-foreground">Backend Engines</h2>
-        </div>
-        <div className="card p-6 space-y-4">
-          {backends.map((backend, i) => (
-            <div key={i} className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-secondary transition-colors">
-              <div className="flex items-center gap-3 flex-1">
-                <div className="text-muted-foreground">{backend.icon}</div>
-                <span className="text-sm font-medium text-foreground">{backend.name}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className={`w-2.5 h-2.5 rounded-full ${backend.status ? "bg-green-500" : "bg-red-500"}`} />
-                <span className={`text-xs font-semibold ${backend.status ? "text-green-600" : "text-red-600"}`}>
-                  {backend.status ? "Active" : "Inactive"}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Data Collectors */}
-      <div>
-        <div className="flex items-center gap-2 mb-4">
-          <Radio size={20} className="text-green-600" />
-          <h2 className="text-xl font-bold text-foreground">Data Collectors</h2>
-        </div>
-        <div className="card p-6 space-y-4">
-          {collectors.map((collector, i) => (
-            <div key={i} className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-secondary transition-colors">
-              <div className="flex items-center gap-3 flex-1">
-                <div className={`w-3 h-3 rounded-full ${collector.status ? "bg-green-500 animate-pulse" : "bg-gray-400"}`} />
-                <div>
-                  <p className="text-sm font-medium text-foreground">{collector.name}</p>
-                  <p className="text-xs text-muted-foreground">Last update: {collector.lastUpdate}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                {collector.status ? (
-                  <span className="text-xs font-semibold text-green-600 px-2 py-1 rounded bg-green-100 dark:bg-green-900">
-                    ✓ Running
-                  </span>
-                ) : (
-                  <span className="text-xs font-semibold text-gray-600 px-2 py-1 rounded bg-gray-100 dark:bg-gray-900">
-                    Offline
-                  </span>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* System Services */}
-      <div>
-        <div className="flex items-center gap-2 mb-4">
-          <Database size={20} className="text-purple-600" />
-          <h2 className="text-xl font-bold text-foreground">System Services</h2>
-        </div>
-        <div className="card p-6 space-y-4">
-          {services.map((service, i) => (
-            <div key={i} className="flex items-center justify-between p-4 rounded-lg border border-border hover:bg-secondary transition-colors">
-              <div className="flex items-center gap-3 flex-1">
-                <div className={`w-2.5 h-2.5 rounded-full ${service.status ? "bg-green-500" : "bg-red-500"}`} />
-                <div>
-                  <p className="text-sm font-medium text-foreground">{service.name}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {service.status ? `Port ${service.port} • ${service.response} response` : `Port ${service.port} • Offline`}
-                  </p>
-                </div>
-              </div>
-              <div>
-                <span className={`text-xs font-semibold px-3 py-1 rounded ${service.status ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200" : "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200"}`}>
-                  {service.status ? "✓ Online" : "✗ Offline"}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Health Indicators */}
-      <div>
-        <h2 className="text-xl font-bold text-foreground mb-4">Health Indicators</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="card p-6 border-l-4 border-l-blue-600">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-sm font-semibold text-foreground mb-2">API Connectivity</p>
-                <p className="text-xs text-muted-foreground">Backend API responding normally</p>
-              </div>
-              <CheckCircle size={24} className="text-green-600" />
-            </div>
-          </div>
-
-          <div className={`card p-6 border-l-4 ${(llmStatus as any)?.ollama_running ? "border-l-green-600" : "border-l-yellow-600"}`}>
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-sm font-semibold text-foreground mb-2">AI Engine (Ollama)</p>
-                <p className="text-xs text-muted-foreground">
-                  {(llmStatus as any)?.ollama_running ? "Running locally" : "Not running - features limited"}
-                </p>
-              </div>
-              {(llmStatus as any)?.ollama_running ? (
-                <CheckCircle size={24} className="text-green-600" />
-              ) : (
-                <AlertCircle size={24} className="text-yellow-600" />
-              )}
-            </div>
-          </div>
-
-          <div className="card p-6 border-l-4 border-l-purple-600">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-sm font-semibold text-foreground mb-2">Database</p>
-                <p className="text-xs text-muted-foreground">PostgreSQL operational ({(health as any)?.db_records || 0} records)</p>
-              </div>
-              <CheckCircle size={24} className="text-green-600" />
-            </div>
-          </div>
-
-          <div className="card p-6 border-l-4 border-l-green-600">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-sm font-semibold text-foreground mb-2">Data Collection</p>
-                <p className="text-xs text-muted-foreground">{collectorCount} collectors actively tracking</p>
-              </div>
-              {collectorCount > 0 ? (
-                <Radio size={24} className="text-green-600 animate-pulse" />
-              ) : (
-                <AlertCircle size={24} className="text-yellow-600" />
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Legend */}
-      <div className="card p-6 bg-muted">
-        <h3 className="text-sm font-semibold text-foreground mb-3">Status Legend</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500" />
-            <span className="text-foreground">Active/Online</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-red-500" />
-            <span className="text-foreground">Inactive/Offline</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse" />
-            <span className="text-foreground">Running (Animating)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-gray-400" />
-            <span className="text-foreground">Disabled</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Refresh Info */}
-      <div className="text-center p-4 text-xs text-muted-foreground">
-        <p>Status refreshes automatically every 5 seconds</p>
         <p>Last updated: {new Date().toLocaleTimeString()}</p>
       </div>
     </div>
