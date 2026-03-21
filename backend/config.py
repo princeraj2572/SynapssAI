@@ -12,8 +12,9 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "changeme"
 
     # LLM
-    OLLAMA_HOST: str = "http://localhost:11434"
-    OLLAMA_MODEL: str = "llama3.1:8b"
+    LLM_API_BASE: str = "http://localhost:8000/v1"
+    LLM_MODEL: str = "mistralai/Mistral-7B-Instruct-v0.1"
+    LLM_API_KEY: str = "sk-lifeOS-key"
 
     # Embeddings
     EMBED_MODEL: str = "all-MiniLM-L6-v2"

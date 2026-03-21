@@ -54,14 +54,14 @@ export default function StatusPage() {
     },
     { 
       name: "Memory Service", 
-      status: (llmStatus as any)?.ollama_running ?? false, 
+      status: (llmStatus as any)?.llm_running ?? false, 
       icon: <Brain size={20} />,
-      uptime: (llmStatus as any)?.ollama_running ? "98.5%" : "0%",
+      uptime: (llmStatus as any)?.llm_running ? "98.5%" : "0%",
       version: "2.1.0",
-      lastError: (llmStatus as any)?.ollama_running ? null : "Ollama not running",
-      cpu: (llmStatus as any)?.ollama_running ? "320%" : "0%",
-      memory: (llmStatus as any)?.ollama_running ? "2.4GB" : "0MB",
-      features: ["Semantic search", "Embeddings", "LLM chat"],
+      lastError: (llmStatus as any)?.llm_running ? null : "Mistral LLM not running",
+      cpu: (llmStatus as any)?.llm_running ? "280%" : "0%",
+      memory: (llmStatus as any)?.llm_running ? "6.2GB" : "0MB",
+      features: ["Semantic search", "Embeddings", "AI chat", "RAG"],
       endpoint: "POST /api/memory/query"
     },
     { 
@@ -159,15 +159,15 @@ export default function StatusPage() {
       details: "psql localhost:5432/personal_life • Replication: OFF"
     },
     { 
-      name: "Ollama LLM", 
-      status: (llmStatus as any)?.ollama_running ?? false, 
-      port: 11434, 
-      response: (llmStatus as any)?.ollama_running ? "2.3s" : "—",
-      version: "Ollama 0.1.45",
-      uptime: (llmStatus as any)?.ollama_running ? "2h 15m" : "Offline",
-      model: (llmStatus as any)?.model_name || "llama3.1:8b",
-      memory: (llmStatus as any)?.ollama_running ? "7.6GB VRAM" : "—",
-      details: (llmStatus as any)?.ollama_running ? "Model loaded, ready for inference" : "Run: ollama serve"
+      name: "Mistral LLM (vLLM)", 
+      status: (llmStatus as any)?.llm_running ?? false, 
+      port: 8000, 
+      response: (llmStatus as any)?.llm_running ? "1.2s" : "—",
+      version: "vLLM • Mistral 7B Instruct v0.1",
+      uptime: (llmStatus as any)?.llm_running ? "2h 15m" : "Offline",
+      model: "mistralai/Mistral-7B-Instruct-v0.1",
+      memory: (llmStatus as any)?.llm_running ? "4-8GB VRAM" : "—",
+      details: (llmStatus as any)?.llm_running ? "OpenAI-compatible API, ready for inference" : "Run: docker compose up mistral"
     },
     { 
       name: "Redis Cache", 

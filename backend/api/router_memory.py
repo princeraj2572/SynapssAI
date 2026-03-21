@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from db.session import get_db
 from schemas.memory import MemoryQueryRequest
 from services.memory import query_memory
-from services.llm import is_ollama_running
+from services.llm import is_llm_running
 
 router = APIRouter(prefix="/api/memory", tags=["ai"])
 
@@ -16,8 +16,8 @@ async def memory_query(req: MemoryQueryRequest, db: Session = Depends(get_db)):
 
 @router.get("/status")
 def llm_status():
-    running = is_ollama_running()
+    running = is_llm_running()
     return {
-        "ollama_running": running,
-        "message": "LLM ready" if running else "Start Ollama: ollama serve",
+        "llm_running": running,
+        "message": "LLM ready (Mistral 7B)" if running else "Start Mistral: docker compose up mistral",
     }
