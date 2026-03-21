@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
 import { useActivities } from "@/lib/hooks/useAnalytics";
-import { createActivity, getLLMStatus } from "@/lib/api";
+import { createActivity, getLLMStatus, getExportStats, exportJSON, exportSQL, createBackup } from "@/lib/api";
 import useSWR from "swr";
-import { CheckCircle, AlertCircle, Plus } from "lucide-react";
+import { CheckCircle, AlertCircle, Plus, Download, Database, Archive } from "lucide-react";
+import { useExportStats } from "@/lib/hooks/useAnalytics";
 
 function useActivitiesData() {
   return useSWR("activities", () => fetch("http://localhost:8080/api/activities").then(r => r.json()), { refreshInterval: 10000 });
@@ -12,10 +13,13 @@ function useActivitiesData() {
 export default function SettingsPage() {
   const { data: activitiesData, mutate } = useActivitiesData();
   const { data: llmStatus } = useSWR("llm-status", getLLMStatus, { refreshInterval: 30000 });
+  const { data: exportStats } = useExportStats();
 
   const [newActivity, setNewActivity] = useState({ name: "", category: "general", unit: "count" });
   const [adding, setAdding] = useState(false);
   const [msg, setMsg] = useState("");
+  const [exporting, setExporting] = useState<string | null>(null);
+  const [exportMsg, setExportMsg] = useState("");
 
   const activities = activitiesData || [];
 
@@ -32,6 +36,44 @@ export default function SettingsPage() {
     } finally {
       setAdding(false);
       setTimeout(() => setMsg(""), 3000);
+    }
+  };
+
+  const handleExport = async (format: "json" | "sql" | "backup") => {
+    setExporting(format);
+    try {
+      let data: any;
+      let filename = "";
+      
+      if (format === "json") {
+        data = await exportJSON();
+        filename = `personal-life-os-export-${new Date().toISOString().split("T")[0]}.json`;
+      } else if (format === "sql") {
+        data = await exportSQL();
+        filename = `personal-life-os-export-${new Date().toISOString().split("T")[0]}.sql`;
+      } else {
+        data = await createBackup();
+        setExportMsg("✅ Full backup created with all formats!");
+        setTimeout(() => setExportMsg(""), 3000);
+        return;
+      }
+
+      // Convert to blob and download
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      setExportMsg(`✅ ${format.toUpperCase()} exported successfully!`);
+      setTimeout(() => setExportMsg(""), 3000);
+    } catch (e: any) {
+      setExportMsg(`❌ Export failed: ${e.message}`);
+      setTimeout(() => setExportMsg(""), 3000);
+    } finally {
+      setExporting(null);
     }
   };
 
@@ -65,6 +107,76 @@ export default function SettingsPage() {
               <br />
               <code>ollama pull llama3.1:8b</code>
             </pre>
+          </div>
+        )}
+      </div>
+
+      {/* Data Export & Backup */}
+      <div className="card p-8 border-blue-200 bg-gradient-to-br from-blue-50 to-card dark:from-blue-950 dark:to-card">
+        <div className="flex items-center gap-2 mb-6">
+          <Archive size={20} className="text-blue-600" />
+          <h2 className="text-lg font-semibold text-foreground">Data Export & Backup</h2>
+        </div>
+        
+        {exportStats && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="p-4 bg-background rounded-lg border border-border">
+              <p className="text-xs text-muted-foreground font-medium">Total Records</p>
+              <p className="text-2xl font-bold text-blue-600 mt-1">{(exportStats as any).total_records || 0}</p>
+            </div>
+            <div className="p-4 bg-background rounded-lg border border-border">
+              <p className="text-xs text-muted-foreground font-medium">Estimated Size</p>
+              <p className="text-2xl font-bold text-blue-600 mt-1">{(exportStats as any).estimated_size_mb?.toFixed(2) || 0} MB</p>
+            </div>
+            <div className="p-4 bg-background rounded-lg border border-border">
+              <p className="text-xs text-muted-foreground font-medium">Date Range</p>
+              <p className="text-xs text-foreground mt-2">From: {(exportStats as any).earliest_date || "N/A"}</p>
+              <p className="text-xs text-foreground">To: {(exportStats as any).latest_date || "N/A"}</p>
+            </div>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <button
+            onClick={() => handleExport("json")}
+            disabled={exporting !== null}
+            className="flex flex-col items-start gap-2 p-4 bg-background rounded-lg border-2 border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900 hover:border-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <div className="flex items-center gap-2">
+              <Download size={18} className="text-blue-600" />
+              <span className="font-semibold text-foreground">{exporting === "json" ? "Exporting..." : "JSON Export"}</span>
+            </div>
+            <p className="text-xs text-muted-foreground">Structured data with metadata</p>
+          </button>
+
+          <button
+            onClick={() => handleExport("sql")}
+            disabled={exporting !== null}
+            className="flex flex-col items-start gap-2 p-4 bg-background rounded-lg border-2 border-green-300 hover:bg-green-50 dark:hover:bg-green-900 hover:border-green-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <div className="flex items-center gap-2">
+              <Database size={18} className="text-green-600" />
+              <span className="font-semibold text-foreground">{exporting === "sql" ? "Exporting..." : "SQL Backup"}</span>
+            </div>
+            <p className="text-xs text-muted-foreground">Database INSERT statements</p>
+          </button>
+
+          <button
+            onClick={() => handleExport("backup")}
+            disabled={exporting !== null}
+            className="flex flex-col items-start gap-2 p-4 bg-background rounded-lg border-2 border-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900 hover:border-purple-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <div className="flex items-center gap-2">
+              <Archive size={18} className="text-purple-600" />
+              <span className="font-semibold text-foreground">{exporting === "backup" ? "Creating..." : "Full Backup"}</span>
+            </div>
+            <p className="text-xs text-muted-foreground">All formats with timestamp</p>
+          </button>
+        </div>
+
+        {exportMsg && (
+          <div className="mt-4 p-3 rounded-lg bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm">
+            {exportMsg}
           </div>
         )}
       </div>

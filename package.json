@@ -1,0 +1,37 @@
+{
+  "name": "personal-life-os",
+  "version": "1.0.0",
+  "description": "Personal Life OS - Comprehensive life management system",
+  "private": true,
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && python main.py",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && pip install -r requirements.txt",
+    "lint": "npm run lint:frontend && npm run lint:backend",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint:backend": "cd backend && pylint api/ models/ schemas/ services/ utils/ --fail-under=8.0 || true",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "cd frontend && npm test",
+    "test:backend": "pytest tests/ -v",
+    "start": "npm run dev:frontend",
+    "setup": "npm install && cd frontend && npm install && cd ../backend && pip install -r requirements.txt && pip install -r requirements-dev.txt"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/princeraj2572/personal-life-os.git"
+  },
+  "keywords": [
+    "life-management",
+    "productivity",
+    "analytics",
+    "journaling"
+  ],
+  "author": "Prince Raj",
+  "license": "Dual (MIT + Commercial)"
+}
