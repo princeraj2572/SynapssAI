@@ -14,7 +14,8 @@ import {
   Brain,
   AlertCircle,
   Settings,
-  Lock
+  Lock,
+  Radio
 } from 'lucide-react';
 
 const NAV = [
@@ -26,6 +27,7 @@ const NAV = [
   { href: '/goals',      label: 'Goals',        Icon: Target },
   { href: '/wellness',   label: 'Wellness',     Icon: Heart },
   { href: '/alerts',     label: 'Alerts',       Icon: AlertCircle },
+  { href: '/status',     label: 'Status',       Icon: Radio },
   { href: '/settings',   label: 'Settings',     Icon: Settings },
 ];
 
@@ -53,14 +55,17 @@ export default function Sidebar() {
                 <Link
                   href={item.href}
                   className={clsx(
-                    "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                    "flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 relative",
                     isActive
-                      ? "bg-blue-600 text-white"
-                      : "text-foreground hover:bg-secondary"
+                      ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-white before:rounded-r"
+                      : "text-foreground hover:bg-secondary/50 hover:text-foreground"
                   )}
                 >
                   <item.Icon size={18} />
-                  <span>{item.label}</span>
+                  <span className="flex-1">{item.label}</span>
+                  {isActive && (
+                    <div className="w-1.5 h-1.5 rounded-full bg-white ml-auto animate-pulse" />
+                  )}
                 </Link>
               </li>
             );
