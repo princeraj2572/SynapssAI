@@ -1,33 +1,34 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
+import { Monitor, Globe, FileText, Watch } from "lucide-react";
 
 export default function CollectorsPage() {
   const collectors = [
     {
       name: "Desktop Agent",
-      icon: "💻",
+      Icon: Monitor,
       status: "inactive",
       description: "Tracks active window and time spent on applications",
       docs: "Start the agent with: python collectors/desktop/agent.py"
     },
     {
       name: "Browser Extension",
-      icon: "🌐",
+      Icon: Globe,
       status: "inactive",
       description: "Captures visited websites and time spent browsing",
       docs: "Load extension from: collectors/browser-extension/"
     },
     {
       name: "Git Scanner",
-      icon: "📝",
+      Icon: FileText,
       status: "inactive",
       description: "Monitors Git commits and coding activity",
       docs: "Run with: python collectors/git-scanner/scanner.py"
     },
     {
       name: "Wearable Sync",
-      icon: "⌚",
+      Icon: Watch,
       status: "inactive",
       description: "Syncs health data from wearables and fitness trackers",
       docs: "Coming soon"
@@ -45,9 +46,9 @@ export default function CollectorsPage() {
         {collectors.map((collector, idx) => (
           <Card key={idx} size="sm">
             <div className="px-6 py-4">
-              <div className="flex items-start justify-between mb-2">
-                <span className="text-2xl">{collector.icon}</span>
-                <span className="text-xs px-2 py-1 rounded-full bg-gray-200 text-gray-700">
+              <div className="flex items-start justify-between mb-3">
+                <collector.Icon size={24} className="text-blue-600" />
+                <span className="text-xs px-2 py-1 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
                   {collector.status}
                 </span>
               </div>

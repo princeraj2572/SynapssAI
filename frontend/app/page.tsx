@@ -7,6 +7,7 @@ import ScoreCard from "@/components/cards/ScoreCard";
 import StreakCard from "@/components/cards/StreakCard";
 import AlertCard from "@/components/cards/AlertCard";
 import QuickLog from "@/components/forms/QuickLog";
+import { Code2, Moon, Smile } from "lucide-react";
 
 export default function Home() {
   const { data: score }   = useScore();
@@ -46,9 +47,27 @@ export default function Home() {
         <h2 className="text-2xl font-semibold mb-6 text-foreground">Today's Metrics</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {score ? <ScoreCard score={(score as any).score} breakdown={(score as any).breakdown} /> : null}
-          <StatCard label="Coding" value={getVal("coding_auto") || getVal("coding")} unit="hrs" color="#3b82f6" />
-          <StatCard label="Sleep" value={getVal("sleep")} unit="hrs" color="#8b5cf6" />
-          <StatCard label="Mood" value={getVal("mood") || "—"} unit="/5" color="#ec4899" />
+          <StatCard 
+            label="Coding" 
+            value={getVal("coding_auto") || getVal("coding")} 
+            unit="hrs" 
+            color="#3b82f6"
+            icon={<Code2 size={24} />}
+          />
+          <StatCard 
+            label="Sleep" 
+            value={getVal("sleep")} 
+            unit="hrs" 
+            color="#8b5cf6"
+            icon={<Moon size={24} />}
+          />
+          <StatCard 
+            label="Mood" 
+            value={getVal("mood") || "—"} 
+            unit="/5" 
+            color="#ec4899"
+            icon={<Smile size={24} />}
+          />
         </div>
       </div>
 

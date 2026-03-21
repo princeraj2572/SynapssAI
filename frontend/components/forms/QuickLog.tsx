@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { trackEvent } from "@/lib/api";
 import { mutate } from "swr";
+import { CheckCircle } from "lucide-react";
 
 const QUICK_ACTIONS = [
   { label: "Gym",        activity: "gym",         value: 1 },
@@ -44,7 +45,10 @@ export default function QuickLog() {
         ))}
       </div>
       {sent && (
-        <p className="text-sm text-green-600 dark:text-green-400 mt-4 font-medium">✓ {sent} logged</p>
+        <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400 mt-4 font-medium">
+          <CheckCircle size={16} />
+          <span>{sent} logged</span>
+        </div>
       )}
     </div>
   );

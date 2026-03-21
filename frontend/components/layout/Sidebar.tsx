@@ -3,18 +3,31 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
+import {
+  Home,
+  Activity,
+  BookOpen,
+  Heart,
+  Smartphone,
+  BarChart3,
+  Target,
+  Brain,
+  AlertCircle,
+  Settings,
+  Lock
+} from 'lucide-react';
 
 const NAV = [
-  { href: '/',          label: 'Dashboard',   icon: '◉' },
-  { href: '/activities',    label: 'Activities',     icon: '⌨' },
-  { href: '/journal',     label: 'Journal',      icon: '📖' },
-  { href: '/wellness',    label: 'Wellness',     icon: '❤' },
-  { href: '/collectors',    label: 'Collectors',     icon: '📱' },
-  { href: '/scores',      label: 'Scores',       icon: '✦' },
-  { href: '/goals', label: 'Goals',  icon: '◈' },
-  { href: '/memory',      label: 'Memory',   icon: '✧' },
-  { href: '/alerts',    label: 'Alerts',     icon: '◎' },
-  { href: '/settings',  label: 'Settings',   icon: '⚙' },
+  { href: '/',          label: 'Dashboard',    Icon: Home },
+  { href: '/activities', label: 'Activities',   Icon: Activity },
+  { href: '/journal',    label: 'Journal',      Icon: BookOpen },
+  { href: '/wellness',   label: 'Wellness',     Icon: Heart },
+  { href: '/collectors', label: 'Collectors',   Icon: Smartphone },
+  { href: '/scores',     label: 'Scores',       Icon: BarChart3 },
+  { href: '/goals',      label: 'Goals',        Icon: Target },
+  { href: '/memory',     label: 'Memory',       Icon: Brain },
+  { href: '/alerts',     label: 'Alerts',       Icon: AlertCircle },
+  { href: '/settings',   label: 'Settings',     Icon: Settings },
 ];
 
 export default function Sidebar() {
@@ -47,7 +60,7 @@ export default function Sidebar() {
                       : "text-foreground hover:bg-secondary"
                   )}
                 >
-                  <span className="text-base">{item.icon}</span>
+                  <item.Icon size={18} />
                   <span>{item.label}</span>
                 </Link>
               </li>
@@ -56,7 +69,10 @@ export default function Sidebar() {
         </ul>
       </nav>
       <div className="px-3 py-3 bg-secondary rounded-lg border border-border mx-1">
-        <p className="text-xs font-medium text-foreground">🔒 Private &amp; Secure</p>
+        <div className="flex items-center gap-2 text-foreground">
+          <Lock size={14} />
+          <span className="text-xs font-medium">Private &amp; Secure</span>
+        </div>
         <p className="text-xs text-muted-foreground mt-1">All data stays local.</p>
       </div>
     </aside>

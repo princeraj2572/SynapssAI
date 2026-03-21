@@ -1,6 +1,7 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
+import { Moon, Smile, Heart, Zap } from "lucide-react";
 
 export default function WellnessPage() {
   return (
@@ -13,7 +14,10 @@ export default function WellnessPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card size="sm">
           <div className="px-6 py-4">
-            <h3 className="font-semibold text-foreground">😴 Sleep Quality</h3>
+            <div className="flex items-center gap-2 mb-2">
+              <Moon className="w-5 h-5 text-indigo-600" />
+              <h3 className="font-semibold text-foreground">Sleep Quality</h3>
+            </div>
             <div className="mt-4 text-3xl font-bold text-indigo-600">--</div>
             <p className="text-xs text-muted-foreground mt-2">Hours tracked</p>
           </div>
@@ -21,7 +25,10 @@ export default function WellnessPage() {
 
         <Card size="sm">
           <div className="px-6 py-4">
-            <h3 className="font-semibold text-foreground">😊 Mood</h3>
+            <div className="flex items-center gap-2 mb-2">
+              <Smile className="w-5 h-5 text-pink-600" />
+              <h3 className="font-semibold text-foreground">Mood</h3>
+            </div>
             <div className="mt-4 text-3xl font-bold text-pink-600">--</div>
             <p className="text-xs text-muted-foreground mt-2">Today's rating</p>
           </div>
@@ -29,7 +36,10 @@ export default function WellnessPage() {
 
         <Card size="sm">
           <div className="px-6 py-4">
-            <h3 className="font-semibold text-foreground">❤️ Health</h3>
+            <div className="flex items-center gap-2 mb-2">
+              <Heart className="w-5 h-5 text-red-600" />
+              <h3 className="font-semibold text-foreground">Health</h3>
+            </div>
             <div className="mt-4 text-3xl font-bold text-red-600">--</div>
             <p className="text-xs text-muted-foreground mt-2">Status</p>
           </div>
@@ -37,7 +47,10 @@ export default function WellnessPage() {
 
         <Card size="sm">
           <div className="px-6 py-4">
-            <h3 className="font-semibold text-foreground">⚡ Energy</h3>
+            <div className="flex items-center gap-2 mb-2">
+              <Zap className="w-5 h-5 text-yellow-600" />
+              <h3 className="font-semibold text-foreground">Energy</h3>
+            </div>
             <div className="mt-4 text-3xl font-bold text-yellow-600">--</div>
             <p className="text-xs text-muted-foreground mt-2">Energy level</p>
           </div>

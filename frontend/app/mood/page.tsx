@@ -5,6 +5,7 @@ import { saveJournal, getJournal } from "@/lib/api";
 import { today } from "@/lib/utils";
 import StatCard from "@/components/cards/StatCard";
 import ActivityLineChart from "@/components/charts/ActivityLineChart";
+import { CheckCircle } from "lucide-react";
 
 export default function MoodPage() {
   const { data: moodHistory }   = useHistory("mood", 30);
@@ -59,7 +60,10 @@ export default function MoodPage() {
             className="bg-pink-500 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-pink-600 transition-colors">
             Save entry
           </button>
-          {saved && <span className="text-xs text-green-600 font-medium">✓ Saved</span>}
+          {saved && <div className="flex items-center gap-2 text-xs text-green-600 font-medium">
+            <CheckCircle size={14} />
+            <span>Saved</span>
+          </div>}
         </div>
       </div>
 

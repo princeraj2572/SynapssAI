@@ -1,6 +1,7 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
+import { Code2, BookOpen, Activity } from "lucide-react";
 
 export default function ActivitiesPage() {
   return (
@@ -13,7 +14,10 @@ export default function ActivitiesPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <Card size="sm">
           <div className="px-6 py-4">
-            <h3 className="font-semibold text-foreground">💻 Coding</h3>
+            <div className="flex items-center gap-3 mb-2">
+              <Code2 className="w-5 h-5 text-blue-600" />
+              <h3 className="font-semibold text-foreground">Coding</h3>
+            </div>
             <p className="text-sm text-muted-foreground mt-1">Programming and development time</p>
             <div className="mt-4 text-2xl font-bold text-blue-600">0h</div>
           </div>
@@ -21,7 +25,10 @@ export default function ActivitiesPage() {
 
         <Card size="sm">
           <div className="px-6 py-4">
-            <h3 className="font-semibold text-foreground">📖 Reading</h3>
+            <div className="flex items-center gap-3 mb-2">
+              <BookOpen className="w-5 h-5 text-purple-600" />
+              <h3 className="font-semibold text-foreground">Reading</h3>
+            </div>
             <p className="text-sm text-muted-foreground mt-1">Learning and reading time</p>
             <div className="mt-4 text-2xl font-bold text-purple-600">0h</div>
           </div>
@@ -29,7 +36,10 @@ export default function ActivitiesPage() {
 
         <Card size="sm">
           <div className="px-6 py-4">
-            <h3 className="font-semibold text-foreground">🏋️ Exercise</h3>
+            <div className="flex items-center gap-3 mb-2">
+              <Activity className="w-5 h-5 text-green-600" />
+              <h3 className="font-semibold text-foreground">Exercise</h3>
+            </div>
             <p className="text-sm text-muted-foreground mt-1">Physical activity and fitness</p>
             <div className="mt-4 text-2xl font-bold text-green-600">0h</div>
           </div>
