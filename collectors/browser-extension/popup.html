@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: system-ui, sans-serif; width: 240px; padding: 16px; margin: 0; background: #fff; color: #1a1a1a; }
+    h2 { font-size: 14px; font-weight: 600; margin: 0 0 12px; color: #1a3a5c; }
+    .row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 13px; }
+    .row:last-child { border: none; }
+    .label { color: #666; }
+    .value { font-weight: 500; }
+    .pill { padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+    .on  { background: #d4edda; color: #1a7a3a; }
+    .off { background: #f8d7da; color: #7a1a1a; }
+    button { width: 100%; margin-top: 12px; padding: 8px; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; font-size: 13px; background: #f5f5f5; }
+    button:hover { background: #e5e5e5; }
+  </style>
+</head>
+<body>
+  <h2>Personal Life OS</h2>
+  <div class="row">
+    <span class="label">Status</span>
+    <span class="pill" id="status">loading...</span>
+  </div>
+  <div class="row">
+    <span class="label">Current site</span>
+    <span class="value" id="domain">—</span>
+  </div>
+  <div class="row">
+    <span class="label">Events buffered</span>
+    <span class="value" id="buffered">0</span>
+  </div>
+  <button id="toggle">Toggle tracking</button>
+  <script src="popup.js"></script>
+</body>
+</html>

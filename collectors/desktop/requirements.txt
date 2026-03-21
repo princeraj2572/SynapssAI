@@ -1,0 +1,7 @@
+requests==2.32.3
+pynput==1.7.7
+pyyaml==6.0.2
+# Windows only:
+pywin32==306
+# macOS only (uncomment):
+# pyobjc==10.3

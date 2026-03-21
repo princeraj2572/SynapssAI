@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: lifedb_test
+          POSTGRES_USER: lifeOS
+          POSTGRES_PASSWORD: lifeOS_pass
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: cd backend && pip install -r requirements-dev.txt
+      - run: cd backend && pytest tests/ -v
+        env:
+          DATABASE_URL: postgresql://lifeOS:lifeOS_pass@localhost:5432/lifedb_test
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - run: cd frontend && npm ci
+      - run: cd frontend && npm run lint

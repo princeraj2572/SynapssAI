@@ -1,0 +1,95 @@
+@import "tw-animate-css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light mode colors */
+    --background: 210 40% 96%;
+    --foreground: 217 33% 17%;
+    --card: 0 0% 100%;
+    --card-foreground: 217 33% 17%;
+    --primary: 214 88% 46%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 17% 90%;
+    --secondary-foreground: 217 33% 30%;
+    --muted: 210 14% 83%;
+    --muted-foreground: 217 9% 45%;
+    --accent: 214 88% 46%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 14% 89%;
+    --input: 210 14% 89%;
+    --ring: 214 88% 46%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark mode colors - complementary and cohesive */
+    --background: 217 33% 17%;
+    --foreground: 210 40% 98%;
+    --card: 217 33% 23%;
+    --card-foreground: 210 40% 98%;
+    --primary: 214 88% 56%;
+    --primary-foreground: 217 33% 17%;
+    --secondary: 217 33% 28%;
+    --secondary-foreground: 210 40% 92%;
+    --muted: 217 33% 35%;
+    --muted-foreground: 210 14% 70%;
+    --accent: 214 88% 56%;
+    --accent-foreground: 217 33% 17%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 32% 31%;
+    --input: 217 32% 31%;
+    --ring: 214 88% 56%;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: inherit;
+  }
+
+  button {
+    font-family: inherit;
+    @apply transition-colors;
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: inherit;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-lg border border-border bg-card text-card-foreground shadow-sm;
+  }
+
+  .stat-label {
+    @apply text-sm font-medium text-muted-foreground;
+  }
+
+  .stat-value {
+    @apply text-2xl font-bold text-foreground;
+  }
+
+  /* Utility classes for common patterns */
+  .link-button {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
+  }
+}

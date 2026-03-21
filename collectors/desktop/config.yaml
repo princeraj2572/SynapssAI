@@ -1,0 +1,4 @@
+api_url: http://localhost:8080
+poll_interval_seconds: 10
+idle_threshold_seconds: 180
+batch_every_seconds: 60
