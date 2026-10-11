@@ -29,7 +29,7 @@
 ### Configuration
 Current settings from `.env`:
 ```
-DATABASE_URL: postgresql://postgres:7970@localhost:5432/synapse
+DATABASE_URL: postgresql://postgres:<password>@localhost:5432/synapse
 API_HOST: 0.0.0.0
 API_PORT: 8080
 OLLAMA_HOST: http://localhost:11434
